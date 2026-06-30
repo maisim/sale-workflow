@@ -58,6 +58,11 @@ msgid "Cancel"
 msgstr ""
 
 #. module: sale_invoice_plan
+#: model:ir.model,name:sale_invoice_plan.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_invoice_plan
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.view_sale_make_planned_invoice
 msgid "Create All Remaining Invoices"
 msgstr ""
@@ -76,6 +81,11 @@ msgstr ""
 #. module: sale_invoice_plan
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.view_sale_make_planned_invoice
 msgid "Create Next Inovice"
+msgstr ""
+
+#. module: sale_invoice_plan
+#: model:ir.model.fields,field_description:sale_invoice_plan.field_res_config_settings__auto_create_invoices_on_confirm
+msgid "Create draft invoices on confirmation"
 msgstr ""
 
 #. module: sale_invoice_plan
@@ -428,6 +438,20 @@ msgstr ""
 #. module: sale_invoice_plan
 #: model_terms:ir.actions.act_window,help:sale_invoice_plan.action_sale_invoice_plan
 msgid "View sales invoice plan lines"
+msgstr ""
+
+#. module: sale_invoice_plan
+#: model:ir.model.fields,help:sale_invoice_plan.field_res_config_settings__auto_create_invoices_on_confirm
+msgid ""
+"When enabled, all planned invoices will be automatically created as drafts "
+"when the sale order is confirmed."
+msgstr ""
+
+#. module: sale_invoice_plan
+#: model_terms:ir.ui.view,arch_db:sale_invoice_plan.res_config_settings_view_form
+msgid ""
+"When enabled, draft invoices will be automatically\n"
+"                            created from the invoice plan upon sale order confirmation."
 msgstr ""
 
 #. module: sale_invoice_plan

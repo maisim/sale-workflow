@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 ==================
 Sales Invoice Plan
 ==================
@@ -13,7 +17,7 @@ Sales Invoice Plan
 .. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
     :alt: Alpha
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fsale--workflow-lightgray.png?logo=github
@@ -32,6 +36,10 @@ By standard feature, user can gradually create partial invoices, one by one.
 This module add ability to create invoices based on the predefined invoice plan,
 either all at once, or one by one.
 The plan support both advance invoice and installment invoices.
+
+A configuration option allows to automatically create draft invoices
+from the invoice plan upon sale order confirmation, without requiring
+manual intervention via the wizard.
 
 .. IMPORTANT::
    This is an alpha version, the data model and design can change at any time without warning.
@@ -59,8 +67,21 @@ Usage
 - After confirm sales order, now we have new option to "Create Invoice by Plan"
 - User can create only next invoice, or create all the rest invoices at the same time
 
+**Automatic Invoice Creation**
+
+- Go to Settings → Sales → Invoicing
+- Enable the option "Create draft invoices on confirmation"
+- When enabled, all planned invoices will be automatically created as drafts
+  as soon as the sale order is confirmed — no need to use the wizard manually
+
 Changelog
 =========
+
+16.0.1.1.0 (2026-06-30)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Add configuration option to auto-create draft invoices on sale order confirmation
+  (`auto_create_invoices_on_confirm` system parameter)
 
 15.0.1.1.0 (2022-05-10)
 ~~~~~~~~~~~~~~~~~~~~~~~

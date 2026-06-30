@@ -16,6 +16,7 @@
         "wizard/sale_create_invoice_plan_view.xml",
         "wizard/sale_make_planned_invoice_view.xml",
         "views/sale_view.xml",
+        "views/res_config_settings.xml",
     ],
     "installable": True,
     "development_status": "Alpha",

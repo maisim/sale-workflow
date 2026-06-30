@@ -1,3 +1,9 @@
+16.0.1.1.0 (2026-06-30)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Add configuration option to auto-create draft invoices on sale order confirmation
+  (`auto_create_invoices_on_confirm` system parameter)
+
 15.0.1.1.0 (2022-05-10)
 ~~~~~~~~~~~~~~~~~~~~~~~
 

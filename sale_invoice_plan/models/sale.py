@@ -73,7 +73,25 @@ class SaleOrder(models.Model):
     def action_confirm(self):
         if self.filtered(lambda r: r.use_invoice_plan and not r.invoice_plan_ids):
             raise UserError(_("Use Invoice Plan selected, but no plan created"))
-        return super().action_confirm()
+        res = super().action_confirm()
+        auto_create = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("sale_invoice_plan.auto_create_invoices_on_confirm")
+        )
+        if auto_create:
+            for order in self:
+                if (
+                    order.use_invoice_plan
+                    and order.invoice_plan_ids
+                    and order.state == "sale"
+                ):
+                    wizard = self.env["sale.make.planned.invoice"].create({})
+                    wizard.with_context(
+                        active_id=order.id,
+                        all_remain_invoices=True,
+                    ).create_invoices_by_plan()
+        return res
 
     def create_invoice_plan(
         self, num_installment, installment_date, interval, interval_type, advance

@@ -13,6 +13,15 @@ _logger = logging.getLogger(__name__)
 
 @tagged("post_install", "-at_install")
 class TestSaleInvoicePlan(common.TestSaleCommon):
+    """Tests for sale_invoice_plan module.
+
+    Tests cover:
+    - Manual invoice creation by plan (test_00, test_01, test_02)
+    - Plan removal (test_03)
+    - Plan persistence on SO edit (test_invoice_plan_so_edit)
+    - Auto-creation of invoices on confirmation (test_auto_create_*)
+    """
+
     @classmethod
     def setUpClass(cls):
         super(TestSaleInvoicePlan, cls).setUpClass()
@@ -328,3 +337,101 @@ class TestSaleInvoicePlan(common.TestSaleCommon):
         self.so_service.invoice_plan_ids._compute_amount()
         self.assertEqual(first_install.amount, 280.0)
         self.assertEqual(first_install.percent, 9.090909)
+
+    def _setup_invoice_plan(self, num_installment=3, advance=False):
+        """Helper to create and confirm an invoice plan on self.so_service."""
+        f = Form(self.env["sale.create.invoice.plan"])
+        f.num_installment = num_installment
+        if advance:
+            f.advance = True
+        plan = f.save()
+        plan.sale_create_invoice_plan()
+        if advance:
+            advance_line = self.so_service.invoice_plan_ids.filtered(
+                lambda l: l.invoice_type == "advance"
+            )
+            advance_line.percent = 10
+        return plan
+
+    def test_auto_create_invoices_on_confirm_disabled(self):
+        """When auto_create parameter is disabled (default),
+        confirming the SO should NOT create any invoices."""
+        self._setup_invoice_plan(num_installment=3)
+        self.so_service.action_confirm()
+        self.assertEqual(self.so_service.state, "sale")
+        self.assertFalse(
+            self.so_service.invoice_ids,
+            "No invoices should be created when parameter is disabled",
+        )
+
+    def test_auto_create_invoices_on_confirm_enabled(self):
+        """When auto_create parameter is enabled,
+        confirming the SO should create all planned invoices as drafts."""
+        self.env["ir.config_parameter"].sudo().set_param(
+            "sale_invoice_plan.auto_create_invoices_on_confirm", "True"
+        )
+        self._setup_invoice_plan(num_installment=3)
+        self.so_service.action_confirm()
+        self.assertEqual(self.so_service.state, "sale")
+        invoices = self.so_service.invoice_ids
+        self.assertEqual(
+            len(invoices), 3, "Should create 3 invoices, one per installment"
+        )
+        self.assertTrue(
+            all(inv.state == "draft" for inv in invoices),
+            "All created invoices should be in draft state",
+        )
+        # Verify total quantity matches
+        quantity = sum(invoices.mapped("invoice_line_ids").mapped("quantity"))
+        self.assertEqual(quantity, 1, "Total invoice quantity should be 1")
+
+    def test_auto_create_invoices_on_confirm_with_advance(self):
+        """With advance payment and auto_create enabled,
+        confirming should create installments + advance invoice."""
+        self.env["ir.config_parameter"].sudo().set_param(
+            "sale_invoice_plan.auto_create_invoices_on_confirm", "True"
+        )
+        self._setup_invoice_plan(num_installment=3, advance=True)
+        self.so_service.action_confirm()
+        self.assertEqual(self.so_service.state, "sale")
+        invoices = self.so_service.invoice_ids
+        self.assertEqual(
+            len(invoices),
+            4,
+            "Should create 4 invoices (3 installments + 1 advance)",
+        )
+
+    def test_auto_create_invoices_on_confirm_without_plan(self):
+        """Auto-create should do nothing if the SO has no invoice plan,
+        even when the parameter is enabled."""
+        self.env["ir.config_parameter"].sudo().set_param(
+            "sale_invoice_plan.auto_create_invoices_on_confirm", "True"
+        )
+        # SO has use_invoice_plan=False by default after setUpClass,
+        # so create a fresh SO without plan
+        so = self.env["sale.order"].create(
+            {
+                "partner_id": self.partner_customer_usd.id,
+                "partner_invoice_id": self.partner_customer_usd.id,
+                "partner_shipping_id": self.partner_customer_usd.id,
+                "order_line": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": self.product_order.name,
+                            "product_id": self.product_order.id,
+                            "product_uom_qty": 1,
+                            "product_uom": self.product_order.uom_id.id,
+                            "price_unit": self.product_order.list_price,
+                        },
+                    )
+                ],
+            }
+        )
+        so.action_confirm()
+        self.assertEqual(so.state, "sale")
+        self.assertFalse(
+            so.invoice_ids,
+            "No invoices should be created when no plan exists",
+        )

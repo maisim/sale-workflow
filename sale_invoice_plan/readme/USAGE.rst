@@ -5,3 +5,10 @@
 - Double check that each advance/installment has correct plan percentage
 - After confirm sales order, now we have new option to "Create Invoice by Plan"
 - User can create only next invoice, or create all the rest invoices at the same time
+
+**Automatic Invoice Creation**
+
+- Go to Settings → Sales → Invoicing
+- Enable the option "Create draft invoices on confirmation"
+- When enabled, all planned invoices will be automatically created as drafts
+  as soon as the sale order is confirmed — no need to use the wizard manually
