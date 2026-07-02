@@ -64,6 +64,11 @@ msgid "Cancel"
 msgstr "Annuleer"
 
 #. module: sale_invoice_plan
+#: model:ir.model,name:sale_invoice_plan.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_invoice_plan
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.view_sale_make_planned_invoice
 msgid "Create All Remaining Invoices"
 msgstr "Maak alle resterende facturen"
@@ -83,6 +88,11 @@ msgstr "Maak factuur per plan"
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.view_sale_make_planned_invoice
 msgid "Create Next Inovice"
 msgstr "Maak volgende factuur"
+
+#. module: sale_invoice_plan
+#: model:ir.model.fields,field_description:sale_invoice_plan.field_res_config_settings__auto_create_invoices_on_confirm
+msgid "Create draft invoices on confirmation"
+msgstr ""
 
 #. module: sale_invoice_plan
 #: model:ir.model.fields,field_description:sale_invoice_plan.field_sale_create_invoice_plan__create_uid
@@ -311,8 +321,8 @@ msgstr ""
 #. module: sale_invoice_plan
 #. odoo-python
 #: code:addons/sale_invoice_plan/wizard/sale_create_invoice_plan.py:0
-#, python-format
-msgid "Number Installment must greater than 1"
+#, fuzzy, python-format
+msgid "Number Installment must greater than 0"
 msgstr "Aantal termijnen moet groter zijn dan 1"
 
 #. module: sale_invoice_plan
@@ -450,6 +460,21 @@ msgid "View sales invoice plan lines"
 msgstr "Vul een percentage in voor alle facturatie planning regels"
 
 #. module: sale_invoice_plan
+#: model:ir.model.fields,help:sale_invoice_plan.field_res_config_settings__auto_create_invoices_on_confirm
+msgid ""
+"When enabled, all planned invoices will be automatically created as drafts "
+"when the sale order is confirmed."
+msgstr ""
+
+#. module: sale_invoice_plan
+#: model_terms:ir.ui.view,arch_db:sale_invoice_plan.res_config_settings_view_form
+msgid ""
+"When enabled, draft invoices will be automatically\n"
+"                            created from the invoice plan upon sale order "
+"confirmation."
+msgstr ""
+
+#. module: sale_invoice_plan
 #: model:ir.model,name:sale_invoice_plan.model_sale_make_planned_invoice
 msgid "Wizard when create invoice by plan"
 msgstr "Wizard om factureren aan te maken per plan"
@@ -468,6 +493,3 @@ msgstr "⇒ Maak facturatie planning"
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.view_order_form_invoice_plan
 msgid "⇒ Remove Invoice Plan"
 msgstr "⇒ Verwijder facturatie planning"
-
-#~ msgid "Sale Order"
-#~ msgstr "Verkooporder"

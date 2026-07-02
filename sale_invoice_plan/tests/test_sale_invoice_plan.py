@@ -435,3 +435,27 @@ class TestSaleInvoicePlan(common.TestSaleCommon):
             so.invoice_ids,
             "No invoices should be created when no plan exists",
         )
+
+    def test_invoice_plan_single_installment(self):
+        """Create a plan with a single installment and invoice it."""
+        ctx = {
+            "active_id": self.so_service.id,
+            "active_ids": [self.so_service.id],
+            "all_remain_invoices": True,
+        }
+        f = Form(self.env["sale.create.invoice.plan"])
+        f.num_installment = 1
+        plan = f.save()
+        plan.with_context(**ctx).sale_create_invoice_plan()
+        self.assertEqual(
+            len(self.so_service.invoice_plan_ids), 1, "Should create 1 installment"
+        )
+        self.assertEqual(self.so_service.invoice_plan_ids[0].percent, 100)
+        self.so_service.action_confirm()
+        # Create invoice
+        wizard = self.env["sale.make.planned.invoice"].create({})
+        wizard.with_context(**ctx).create_invoices_by_plan()
+        invoices = self.so_service.invoice_ids
+        self.assertEqual(len(invoices), 1, "Should create exactly 1 invoice")
+        quantity = sum(invoices.mapped("invoice_line_ids").mapped("quantity"))
+        self.assertEqual(quantity, 1, "Total invoice quantity should be 1")

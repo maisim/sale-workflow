@@ -313,7 +313,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_invoice_plan/wizard/sale_create_invoice_plan.py:0
 #, python-format
-msgid "Number Installment must greater than 1"
+msgid "Number Installment must greater than 0"
 msgstr ""
 
 #. module: sale_invoice_plan

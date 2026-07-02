@@ -323,8 +323,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_invoice_plan/wizard/sale_create_invoice_plan.py:0
 #, python-format
-msgid "Number Installment must greater than 1"
-msgstr "Le nombre de tranches doit être supérieur à 1"
+msgid "Number Installment must greater than 0"
+msgstr "Le nombre de tranches doit être supérieur à 0"
 
 #. module: sale_invoice_plan
 #: model:ir.model.fields,field_description:sale_invoice_plan.field_sale_create_invoice_plan__num_installment
@@ -470,8 +470,8 @@ msgid ""
 "When enabled, all planned invoices will be automatically created as drafts "
 "when the sale order is confirmed."
 msgstr ""
-"Lorsque activé, toutes les factures planifiées seront automatiquement "
-"créées en brouillon lors de la confirmation du bon de commande."
+"Lorsque activé, toutes les factures planifiées seront automatiquement créées "
+"en brouillon lors de la confirmation du bon de commande."
 
 #. module: sale_invoice_plan
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.res_config_settings_view_form

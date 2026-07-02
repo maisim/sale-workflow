@@ -62,6 +62,11 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: sale_invoice_plan
+#: model:ir.model,name:sale_invoice_plan.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: sale_invoice_plan
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.view_sale_make_planned_invoice
 msgid "Create All Remaining Invoices"
 msgstr "Crear todas las facturas restantes"
@@ -81,6 +86,11 @@ msgstr "Crear factura por plan"
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.view_sale_make_planned_invoice
 msgid "Create Next Inovice"
 msgstr "Crear siguiente factura"
+
+#. module: sale_invoice_plan
+#: model:ir.model.fields,field_description:sale_invoice_plan.field_res_config_settings__auto_create_invoices_on_confirm
+msgid "Create draft invoices on confirmation"
+msgstr ""
 
 #. module: sale_invoice_plan
 #: model:ir.model.fields,field_description:sale_invoice_plan.field_sale_create_invoice_plan__create_uid
@@ -310,8 +320,8 @@ msgstr ""
 #. module: sale_invoice_plan
 #. odoo-python
 #: code:addons/sale_invoice_plan/wizard/sale_create_invoice_plan.py:0
-#, python-format
-msgid "Number Installment must greater than 1"
+#, fuzzy, python-format
+msgid "Number Installment must greater than 0"
 msgstr "El número de cuotas debe ser mayor que 1"
 
 #. module: sale_invoice_plan
@@ -445,6 +455,21 @@ msgid "View sales invoice plan lines"
 msgstr "Ver líneas del plan de facturas de ventas"
 
 #. module: sale_invoice_plan
+#: model:ir.model.fields,help:sale_invoice_plan.field_res_config_settings__auto_create_invoices_on_confirm
+msgid ""
+"When enabled, all planned invoices will be automatically created as drafts "
+"when the sale order is confirmed."
+msgstr ""
+
+#. module: sale_invoice_plan
+#: model_terms:ir.ui.view,arch_db:sale_invoice_plan.res_config_settings_view_form
+msgid ""
+"When enabled, draft invoices will be automatically\n"
+"                            created from the invoice plan upon sale order "
+"confirmation."
+msgstr ""
+
+#. module: sale_invoice_plan
 #: model:ir.model,name:sale_invoice_plan.model_sale_make_planned_invoice
 msgid "Wizard when create invoice by plan"
 msgstr "Asistente al crear factura por plan"
@@ -463,6 +488,3 @@ msgstr "⇒ Crear plan de facturas"
 #: model_terms:ir.ui.view,arch_db:sale_invoice_plan.view_order_form_invoice_plan
 msgid "⇒ Remove Invoice Plan"
 msgstr "⇒ Eliminar plan de factura"
-
-#~ msgid "The analytic account related to a sales order."
-#~ msgstr "La cuenta analítica relacionada con una orden de venta."

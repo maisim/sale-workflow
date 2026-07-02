@@ -77,6 +77,11 @@ Usage
 Changelog
 =========
 
+16.0.1.2.0 (2026-07-02)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Allow invoice plan with a single installment (previously required at least 2)
+
 16.0.1.1.0 (2026-06-30)
 ~~~~~~~~~~~~~~~~~~~~~~~
 
