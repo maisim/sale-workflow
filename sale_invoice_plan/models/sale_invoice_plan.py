@@ -50,6 +50,7 @@ class SaleInvoicePlan(models.Model):
         digits="Product Price",
         compute="_compute_amount",
         inverse="_inverse_amount",
+        store=True,
         help="This amount will be used to calculate the percent",
     )
     invoice_move_ids = fields.Many2many(
